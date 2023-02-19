@@ -1,6 +1,6 @@
 var svg = d3.select("#scatterplot").append("svg")
-.attr("width", bar_width + bar_margin.left + bar_margin.right)
-.attr("height", bar_height + bar_margin.top + bar_margin.bottom),
+.attr("width", 500)
+.attr("height", 400),
             margin = 200,
             width = svg.attr("width") - margin,
             height = svg.attr("height") - margin
