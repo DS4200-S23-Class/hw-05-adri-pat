@@ -58,9 +58,15 @@ d3.csv("data/scatter-data.csv").then((data) => {
         console.log(d);
         console.log(this);
 
-        d3.select(".col2").append("text").text(d + " ")
+        x = (this.cx / 200) * 10;
+        y = 10 - (this.cy / 200) * 10;
 
-        showBorderIndex = findIndexInArray(dataset1, d)
+        outputText = "[" + x + ", " + y + "]";
+        coordinate = [x, y]
+
+        d3.select(".col2").append("text").text(outputText + " ")
+
+        showBorderIndex = findIndexInArray(dataset1, coordinate)
 
         showBorder = showBorderArr[showBorderIndex]
 
@@ -132,60 +138,3 @@ function addPoint() {
     }
 }
 
-
-
-var dataset2 = [[1,1.5],[2,2],[3,2.5],[4,3],[5,3.5],[6,4],[7,4.5],[8,5]];
-
-var bar_margin = {top: 10, right: 10, bottom: 30, left: 30},
-    bar_width = 900 - bar_margin.left - bar_margin.right,
-    bar_height = 300 - bar_margin.top - bar_margin.bottom;
-
-var bar_x = d3.scaleOrdinal()
-    .domain(dataset2.map(function (d) {return d[0]; }))
-    .range([bar_margin.left, bar_width]);
-
-var bar_y = d3.scaleLinear()
-     .domain([0, d3.max(dataset2, function(d) { return d[1]; })])
-     .range([bar_height, 0]);
-
-var bar_xAxis = d3.axisBottom()
-    .scale(bar_x);
-
-var bar_yAxis = d3.axisLeft()
-    .scale(bar_y);
-
-var bar_svg = d3.select("#chart").append("svg")
-    .attr("width", bar_width + bar_margin.left + bar_margin.right)
-    .attr("height", bar_height + bar_margin.top + bar_margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + bar_margin.left + "," + bar_margin.top + ")");
-
-bar_svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(-30," + bar_height + ")")
-    .call(bar_xAxis)
-.append("text")
-    .attr("x", bar_width)
-    .attr("dy", 20)
-    .attr("text-anchor", "end")
-    .text("Foo");
-
-bar_svg.append("g")
-    .attr("class", "y axis")
-    .call(bar_yAxis)
-.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Log(Number Sts)");
-
-        
-var bars = bar_svg.selectAll("rect")
-    .data(dataset2)
- .enter().append("rect")
-    .attr("x", function(d) {return bar_x(d[0]) + bar_x.bandWidth()/2 - 40;})
-    .attr("y", function(d) {return bar_y(d[1]);})
-    .attr("width", 20)
-    .attr("height", function(d) {return bar_height - bar_y(d[1]);})
-    .style("fill","blue");
