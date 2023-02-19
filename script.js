@@ -55,11 +55,8 @@ d3.csv("data/scatter-data.csv").then((data) => {
     })
     .on("click", function(d) {
 
-        console.log(d);
-        console.log(this);
-
-        x = (this.cx / 200) * 10;
-        y = 10 - (this.cy / 200) * 10;
+        x = (Math.round(Number(this.cx)) / 200) * 10;
+        y = 10 - (Math.round(Number(this.cy)) / 200) * 10;
 
         outputText = "[" + x + ", " + y + "]";
         coordinate = [x, y]
@@ -138,3 +135,52 @@ function addPoint() {
     }
 }
 
+var bar_margin = {top: 20, right: 20, bottom: 30, left: 40},
+    bar_width = 960 - bar_margin.left - bar_margin.right,
+    bar_height = 500 - bar_margin.top - bar_margin.bottom;
+
+// set the ranges
+var bar_x = d3.scaleBand()
+          .range([0, bar_width])
+          .padding(0.1);
+var bar_y = d3.scaleLinear()
+          .range([bar_height, 0]);
+
+var svg = d3.select("#barchart").append("svg")
+            .attr("width", bar_width + bar_margin.left + bar_margin.right)
+            .attr("height", bar_height + bar_margin.top + bar_margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + bar_margin.left + "," + bar_margin.top + ")");
+
+d3.csv("data/bar-data.csv", function(error, data) {
+    if (error) throw error;
+    
+    // format the data
+    data.forEach(function(d) {
+        d.amount = +d.amount;
+    });
+    
+    // Scale the range of the data in the domains
+    x.domain(data.map(function(d) { return d.category; }));
+    y.domain([0, d3.max(data, function(d) { return d.amount; })]);
+    
+    // append the rectangles for the bar chart
+    svg.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) { return bar_x(d.category); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return bar_y(d.amount); })
+        .attr("height", function(d) { return bar_height - bar_y(d.amount); });
+    
+    // add the x Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + bar_height + ")")
+        .call(d3.axisBottom(bar_x));
+    
+    // add the y Axis
+    svg.append("g")
+        .call(d3.axisLeft(bar_y));
+    
+    });
