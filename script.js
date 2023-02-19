@@ -18,15 +18,6 @@ g.append("g")
 g.append("g")
 .call(d3.axisLeft(yScale));
 
-var dataset1 = [];
-
-d3.csv("data/scatter-data.csv").then((data) => { 
-    for (var i = 0; i < data.length; i++) {
-        dataset1.push([data[i].x, data[i].y]);
-    }
-});
-
-
 var showBorderArr = new Array(dataset1.length).fill(true);
 
 function findIndexInArray(givenArray, object) {
@@ -37,6 +28,14 @@ function findIndexInArray(givenArray, object) {
     }
     return -1;
 }
+
+var dataset1 = [];
+
+d3.csv("data/scatter-data.csv").then((data) => { 
+    for (var i = 0; i < data.length; i++) {
+        dataset1.push([data[i].x, data[i].y]);
+    }
+
 
 svg.append('g')
 .selectAll("dot")
@@ -72,6 +71,7 @@ svg.append('g')
         .attr("stroke", "#black")
         .attr("stroke-width", 2)
     }
+});
 });
 
 function addPoint() {
