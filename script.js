@@ -224,8 +224,8 @@ d3.csv("data/bar-data.csv").then((data) => {
 
     tooltip
       .html("Category: " + categoryName + "<br>" + "Amount: " + amountValue)
-      .style("left", d.screenX + "px")
-      .style("top", d.screenY + "px");
+      .style("left", event.pageX + 10 + "px")
+      .style("top", event.pageY - bar_height + "px");
   };
 
   // mouseleave function
