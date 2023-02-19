@@ -54,6 +54,9 @@ d3.csv("data/scatter-data.csv").then((data) => {
         d3.select(this).attr("r", 10).style("fill", "black");
     })
     .on("click", function(d) {
+
+        console.log(d);
+
         d3.select(".col2").append("text").text(d + " ")
 
         showBorderIndex = findIndexInArray(dataset1, d)
