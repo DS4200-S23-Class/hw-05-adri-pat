@@ -1,3 +1,4 @@
+/*
 var svg = d3.select("svg"),
             margin = 200,
             width = svg.attr("width") - margin,
@@ -124,7 +125,7 @@ function addPoint() {
             document.getElementById('addPointMsg').innerHTML = "Point Added"
     
     }
-}
+} */
 
 var dataset2 = [[1,1.5],[2,2],[3,2.5],[4,3],[5,3.5],[6,4],[7,4.5],[8,5]];
 
