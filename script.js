@@ -134,7 +134,7 @@ function addPoint() {
     
     }
 }
-
+/** 
 var bar_margin = {top: 20, right: 20, bottom: 30, left: 40},
     bar_width = 960 - bar_margin.left - bar_margin.right,
     bar_height = 500 - bar_margin.top - bar_margin.bottom;
@@ -159,8 +159,8 @@ d3.csv("data/bar-data.csv").then((data) => {
     });
     
     // Scale the range of the data in the domains
-    x.domain(data.map(function(d) { return d.category; }));
-    y.domain([0, d3.max(data, function(d) { return d.amount; })]);
+    bar_x.domain(data.map(function(d) { return d.category; }));
+    bar_y.domain([0, d3.max(data, function(d) { return d.amount; })]);
     
     // append the rectangles for the bar chart
     svg.selectAll(".bar")
@@ -181,4 +181,4 @@ d3.csv("data/bar-data.csv").then((data) => {
     svg.append("g")
         .call(d3.axisLeft(bar_y));
     
-    });
+    }); */
