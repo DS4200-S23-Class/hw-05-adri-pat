@@ -1,4 +1,6 @@
-var svg = d3.select("#scatterplot").append("svg"),
+var svg = d3.select("#scatterplot").append("svg")
+.attr("width", bar_width + bar_margin.left + bar_margin.right)
+.attr("height", bar_height + bar_margin.top + bar_margin.bottom),
             margin = 200,
             width = svg.attr("width") - margin,
             height = svg.attr("height") - margin
@@ -133,11 +135,11 @@ var bar_margin = {top: 10, right: 10, bottom: 30, left: 30},
     bar_height = 300 - bar_margin.top - bar_margin.bottom;
 
 var bar_x = d3.scaleOrdinal()
-    .domain(data.map(function (d) {return d[0]; }))
+    .domain(dataset2.map(function (d) {return d[0]; }))
     .rangeRoundBands([bar_margin.left, bar_width], 0.05);
 
 var bar_y = d3.scale.linear()
-     .domain([0, d3.max(data, function(d) { return d[1]; })])
+     .domain([0, d3.max(dataset2, function(d) { return d[1]; })])
      .range([bar_height, 0]);
 
 var bar_xAxis = d3.svg.axis()
