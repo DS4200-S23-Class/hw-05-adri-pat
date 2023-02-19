@@ -1,7 +1,3 @@
-var dataset1 = [
-    [1, 2], [2, 4], [6,2], [9, 9]
-    ];
-
 var svg = d3.select("svg"),
             margin = 200,
             width = svg.attr("width") - margin,
@@ -20,16 +16,7 @@ g.append("g")
 g.append("g")
 .call(d3.axisLeft(yScale));
 
-var showBorderArr = new Array(dataset1.length).fill(true);
-
-function findIndexInArray(givenArray, object) {
-    for (var i = 0; i < givenArray.length; i++) {
-        if (givenArray[i][0] == object[0] && givenArray[i][1] == object[1]) {
-            return i
-        }
-    }
-    return -1;
-}
+var dataset1 = [];
 
 d3.csv("data/scatter-data.csv").then((data) => { 
 
@@ -41,7 +28,23 @@ d3.csv("data/scatter-data.csv").then((data) => {
     // let's check our data
     console.log(data);
 
+    for (var i = 0; i < data.length; i++) {
+        dataset1.push([data[i].x, data[i].y]);
+    }
+
 });
+
+
+var showBorderArr = new Array(dataset1.length).fill(true);
+
+function findIndexInArray(givenArray, object) {
+    for (var i = 0; i < givenArray.length; i++) {
+        if (givenArray[i][0] == object[0] && givenArray[i][1] == object[1]) {
+            return i
+        }
+    }
+    return -1;
+}
 
 svg.append('g')
 .selectAll("dot")
