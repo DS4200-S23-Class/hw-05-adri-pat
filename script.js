@@ -56,6 +56,7 @@ d3.csv("data/scatter-data.csv").then((data) => {
     .on("click", function(d) {
 
         console.log(d);
+        console.log(this);
 
         d3.select(".col2").append("text").text(d + " ")
 
@@ -183,7 +184,7 @@ bar_svg.append("g")
 var bars = bar_svg.selectAll("rect")
     .data(dataset2)
  .enter().append("rect")
-    .attr("x", function(d) {return bar_x(d[0]) + bar_x.rangeBand()/2 - 40;})
+    .attr("x", function(d) {return bar_x(d[0]) + bar_x.bandWidth()/2 - 40;})
     .attr("y", function(d) {return bar_y(d[1]);})
     .attr("width", 20)
     .attr("height", function(d) {return bar_height - bar_y(d[1]);})
