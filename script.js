@@ -19,6 +19,8 @@ g.append("g")
 .call(d3.axisLeft(yScale));
 
 function findIndexInArray(givenArray, object) {
+    console.log("in index: " + object);
+
     for (var i = 0; i < givenArray.length; i++) {
         if (givenArray[i][0] == object[0] && givenArray[i][1] == object[1]) {
             return i
