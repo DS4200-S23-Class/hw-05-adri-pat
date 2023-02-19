@@ -144,13 +144,11 @@ var bar_y = d3.scaleLinear()
      .domain([0, d3.max(dataset2, function(d) { return d[1]; })])
      .range([bar_height, 0]);
 
-var bar_xAxis = d3.svg.axis()
-    .scale(bar_x)
-    .orient("bottom");
+var bar_xAxis = d3.axisBottom()
+    .scale(bar_x);
 
-var bar_yAxis = d3.svg.axis()
-    .scale(bar_y)
-    .orient("left");
+var bar_yAxis = d3.axisLeft()
+    .scale(bar_y);
 
 var bar_svg = d3.select("#chart").append("svg")
     .attr("width", bar_width + bar_margin.left + bar_margin.right)
