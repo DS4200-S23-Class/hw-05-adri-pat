@@ -1,14 +1,71 @@
 <!DOCTYPE html>
-<html> 
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>hw-04</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src='js/d3.v6.1.1/d3.min.js'></script>
+  </head>
 
-<head>
-    <meta charset=utf-8/>
-</head>
+  <body>
+    <h1 class="centered">hw-04: Event Handling</h1>
+    <div class="container">
+      <div class="col1">
+        <svg width="500" height="400"></svg>
+      </div>
+      <div class="col2">
+        <!-- dropdown for x value -->
+        <label for="xVal">Choose the x-coordinate you'd like to add:</label>
+        <select id="xVal">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+        </select>
+        <br />
+        <!-- dropdown for y value -->
+        <label for="yVal">Choose the y-coordinate you'd like to add:</label>
+        <select id="yVal">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+        </select>
+        <br />
+        <button onclick="addPoint()">Add Point</button>
+        <p id="addPointMsg"></p>
+      </div>
+    </div>
 
+    <h2 class="centered">Acknowledgements</h2>
+    <ul>
+      <li>
+        https://www.geeksforgeeks.org/how-to-define-two-column-layout-using-flexbox/
+      </li>
+      <li>
+        https://www.tutorialsteacher.com/d3js/setup-d3js-development-environment
+      </li>
+      <li>
+        https://stackoverflow.com/questions/48141505/d3-selectrect-id-attry-returns-cannot-read-property-getattribute-of-nu
+      </li>
+      <li>
+        https://stackoverflow.com/questions/27169375/how-to-update-bound-data-in-d3-js
+      </li>
+      <li>
+        https://gist.github.com/jfreels/6810705
+      </li>
+    </ul>
 
-<body>
-
-
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
