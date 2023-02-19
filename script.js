@@ -138,8 +138,7 @@ var bar_margin = {top: 10, right: 10, bottom: 30, left: 30},
 
 var bar_x = d3.scaleOrdinal()
     .domain(dataset2.map(function (d) {return d[0]; }))
-    .range([bar_margin.left, bar_width])
-    .round([005]);
+    .range([bar_margin.left, bar_width]);
 
 var bar_y = d3.scale.linear()
      .domain([0, d3.max(dataset2, function(d) { return d[1]; })])
