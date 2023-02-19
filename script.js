@@ -18,8 +18,6 @@ g.append("g")
 g.append("g")
 .call(d3.axisLeft(yScale));
 
-var showBorderArr = new Array(dataset1.length).fill(true);
-
 function findIndexInArray(givenArray, object) {
     for (var i = 0; i < givenArray.length; i++) {
         if (givenArray[i][0] == object[0] && givenArray[i][1] == object[1]) {
@@ -30,48 +28,50 @@ function findIndexInArray(givenArray, object) {
 }
 
 var dataset1 = [];
+var showBorderArr = [];
 
 d3.csv("data/scatter-data.csv").then((data) => { 
     for (var i = 0; i < data.length; i++) {
         dataset1.push([data[i].x, data[i].y]);
     }
 
+    showBorderArr = new Array(dataset1.length).fill(true);
 
-svg.append('g')
-.selectAll("dot")
-.data(dataset1)
-.enter()
-.append("circle")
-.attr("cx", function (d) { return xScale(d[0]); } )
-.attr("cy", function (d) { return yScale(d[1]); } )
-.attr("r", 10)
-.attr("transform", "translate(" + 100 + "," + 100 + ")")
-.style("fill", "black")
-.on("mouseover", function(d) {
-    d3.select(this).attr("r", 10).style("fill", "red");
-})
-.on("mouseout", function(d) {
-    d3.select(this).attr("r", 10).style("fill", "black");
-})
-.on("click", function(d) {
-    d3.select(".col2").append("text").text(d + " ")
+    svg.append('g')
+    .selectAll("dot")
+    .data(dataset1)
+    .enter()
+    .append("circle")
+    .attr("cx", function (d) { return xScale(d[0]); } )
+    .attr("cy", function (d) { return yScale(d[1]); } )
+    .attr("r", 10)
+    .attr("transform", "translate(" + 100 + "," + 100 + ")")
+    .style("fill", "black")
+    .on("mouseover", function(d) {
+        d3.select(this).attr("r", 10).style("fill", "red");
+    })
+    .on("mouseout", function(d) {
+        d3.select(this).attr("r", 10).style("fill", "black");
+    })
+    .on("click", function(d) {
+        d3.select(".col2").append("text").text(d + " ")
 
-    showBorderIndex = findIndexInArray(dataset1, d)
+        showBorderIndex = findIndexInArray(dataset1, d)
 
-    showBorder = showBorderArr[showBorderIndex]
+        showBorder = showBorderArr[showBorderIndex]
 
-    showBorderArr[showBorderIndex] = showBorder == true ? false : true;
+        showBorderArr[showBorderIndex] = showBorder == true ? false : true;
 
-    if (!showBorderArr[showBorderIndex]) {
-        d3.select(this)
-        .attr("stroke", "#32CD32")
-        .attr("stroke-width", 2)
-    } else {
-        d3.select(this)
-        .attr("stroke", "#black")
-        .attr("stroke-width", 2)
-    }
-});
+        if (!showBorderArr[showBorderIndex]) {
+            d3.select(this)
+            .attr("stroke", "#32CD32")
+            .attr("stroke-width", 2)
+        } else {
+            d3.select(this)
+            .attr("stroke", "#black")
+            .attr("stroke-width", 2)
+        }
+    });
 });
 
 function addPoint() {
@@ -127,6 +127,8 @@ function addPoint() {
     
     }
 }
+
+
 
 var dataset2 = [[1,1.5],[2,2],[3,2.5],[4,3],[5,3.5],[6,4],[7,4.5],[8,5]];
 
