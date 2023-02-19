@@ -152,9 +152,7 @@ var svg = d3.select("#barchart").append("svg")
             .append("g")
             .attr("transform", "translate(" + bar_margin.left + "," + bar_margin.top + ")");
 
-d3.csv("data/bar-data.csv", function(error, data) {
-    if (error) throw error;
-    
+d3.csv("data/bar-data.csv").then((data) => { 
     // format the data
     data.forEach(function(d) {
         d.amount = +d.amount;
