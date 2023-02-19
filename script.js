@@ -55,8 +55,13 @@ d3.csv("data/scatter-data.csv").then((data) => {
     })
     .on("click", function(d) {
 
-        x = (Math.round(Number(this.cx)) / 200) * 10;
-        y = 10 - (Math.round(Number(this.cy)) / 200) * 10;
+        cx = this.cx.baseVal.value;
+        cy = this.cy.baseVal.value;
+
+        console.log(cx, cy);
+
+        x = (Math.round(Number(cx)) / 1.5 / 200) * 10;
+        y = 10 - (Math.round(Number(cy)) / 200) * 10;
 
         outputText = "[" + x + ", " + y + "]";
         coordinate = [x, y]
@@ -92,8 +97,6 @@ function addPoint() {
         dataset1.push([x, y]);
         showBorderArr.push(true);
 
-        console.log(dataset1);
-
         svg.append('g')
             .selectAll("dot")
             .data(dataset1)
@@ -111,9 +114,19 @@ function addPoint() {
                 d3.select(this).attr("r", 10).style("fill", "black");
             })
             .on("click", function(d) {
-                d3.select(".col2").append("text").text(d + " ")
 
-                showBorderIndex = findIndexInArray(dataset1, d)
+                cx = this.cx.baseVal.value;
+                cy = this.cy.baseVal.value;
+
+                x = (Math.round(Number(cx)) / 1.5 / 200) * 10;
+                y = 10 - (Math.round(Number(cy)) / 200) * 10;
+
+                outputText = "[" + x + ", " + y + "]";
+                coordinate = [x, y]
+
+                d3.select(".col2").append("text").text(outputText + " ")
+
+                showBorderIndex = findIndexInArray(dataset1, coordinate)
 
                 showBorder = showBorderArr[showBorderIndex]
 
@@ -134,9 +147,9 @@ function addPoint() {
     
     }
 }
-/** 
+
 var bar_margin = {top: 20, right: 20, bottom: 30, left: 40},
-    bar_width = 960 - bar_margin.left - bar_margin.right,
+    bar_width = 500 - bar_margin.left - bar_margin.right,
     bar_height = 500 - bar_margin.top - bar_margin.bottom;
 
 // set the ranges
@@ -146,11 +159,35 @@ var bar_x = d3.scaleBand()
 var bar_y = d3.scaleLinear()
           .range([bar_height, 0]);
 
-var svg = d3.select("#barchart").append("svg")
+var bar_svg = d3.select("#barchart").append("svg")
             .attr("width", bar_width + bar_margin.left + bar_margin.right)
             .attr("height", bar_height + bar_margin.top + bar_margin.bottom)
             .append("g")
             .attr("transform", "translate(" + bar_margin.left + "," + bar_margin.top + ")");
+
+var tooltip = d3.select("#barchart")
+                .append("div")
+                .style("opacity", 0)
+                .attr("class", "tooltip")
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "1px")
+                .style("border-radius", "5px")
+                .style("padding", "10px");
+
+let mouseover = function(d) {
+    var categoryName = d.toElement.__data__['category'];
+    var amountValue = d.toElement.__data__['amount'];
+
+    tooltip.html("Category: " + categoryName + "<br>" + "Amount: " + amountValue).style("opacity", 1)
+    .style("left", d.screenX + "px")     
+    .style("top", d.screenY + "px");
+    }
+
+const mouseleave = function(event, d) {
+        tooltip
+          .style("opacity", 0)
+      }
 
 d3.csv("data/bar-data.csv").then((data) => { 
     // format the data
@@ -163,14 +200,16 @@ d3.csv("data/bar-data.csv").then((data) => {
     bar_y.domain([0, d3.max(data, function(d) { return d.amount; })]);
     
     // append the rectangles for the bar chart
-    svg.selectAll(".bar")
+    bar_svg.selectAll(".bar")
         .data(data)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(d) { return bar_x(d.category); })
-        .attr("width", x.bandwidth())
+        .attr("width", bar_x.bandwidth())
         .attr("y", function(d) { return bar_y(d.amount); })
-        .attr("height", function(d) { return bar_height - bar_y(d.amount); });
+        .attr("height", function(d) { return bar_height - bar_y(d.amount); })
+        .on("mouseover", mouseover)
+        .on("mouseleave", mouseleave);
     
     // add the x Axis
     svg.append("g")
@@ -180,5 +219,4 @@ d3.csv("data/bar-data.csv").then((data) => {
     // add the y Axis
     svg.append("g")
         .call(d3.axisLeft(bar_y));
-    
-    }); */
+    }); 

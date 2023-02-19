@@ -1,3 +1,8 @@
+.tooltip {
+  display: inline;
+  position: fixed;
+}
+
 body {
     font-family: "Arial";
   }
