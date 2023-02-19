@@ -132,7 +132,7 @@ var bar_margin = {top: 10, right: 10, bottom: 30, left: 30},
     bar_width = 900 - bar_margin.left - bar_margin.right,
     bar_height = 300 - bar_margin.top - bar_margin.bottom;
 
-var bar_x = d3.scale.ordinal()
+var bar_x = d3.scaleOrdinal()
     .domain(data.map(function (d) {return d[0]; }))
     .rangeRoundBands([bar_margin.left, bar_width], 0.05);
 
