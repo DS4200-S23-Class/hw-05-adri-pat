@@ -126,47 +126,47 @@ function addPoint() {
     }
 }
 
-var data = [[1,1.5],[2,2],[3,2.5],[4,3],[5,3.5],[6,4],[7,4.5],[8,5]];
+var dataset2 = [[1,1.5],[2,2],[3,2.5],[4,3],[5,3.5],[6,4],[7,4.5],[8,5]];
 
-var margin = {top: 10, right: 10, bottom: 30, left: 30},
-    width = 900 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+var bar_margin = {top: 10, right: 10, bottom: 30, left: 30},
+    bar_width = 900 - bar_margin.left - bar_margin.right,
+    bar_height = 300 - bar_margin.top - bar_margin.bottom;
 
-var x = d3.scale.ordinal()
+var bar_x = d3.scale.ordinal()
     .domain(data.map(function (d) {return d[0]; }))
-    .rangeRoundBands([margin.left, width], 0.05);
+    .rangeRoundBands([bar_margin.left, bar_width], 0.05);
 
-var y = d3.scale.linear()
+var bar_y = d3.scale.linear()
      .domain([0, d3.max(data, function(d) { return d[1]; })])
-     .range([height, 0]);
+     .range([bar_height, 0]);
 
-var xAxis = d3.svg.axis()
-    .scale(x)
+var bar_xAxis = d3.svg.axis()
+    .scale(bar_x)
     .orient("bottom");
 
-var yAxis = d3.svg.axis()
-    .scale(y)
+var bar_yAxis = d3.svg.axis()
+    .scale(bar_y)
     .orient("left");
 
-var svg = d3.select("#chart").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+var bar_svg = d3.select("#chart").append("svg")
+    .attr("width", bar_width + bar_margin.left + bar_margin.right)
+    .attr("height", bar_height + bar_margin.top + bar_margin.bottom)
   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + bar_margin.left + "," + bar_margin.top + ")");
 
-svg.append("g")
+bar_svg.append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(-30," + height + ")")
-    .call(xAxis)
+    .attr("transform", "translate(-30," + bar_height + ")")
+    .call(bar_xAxis)
 .append("text")
-    .attr("x", width)
+    .attr("x", bar_width)
     .attr("dy", 20)
     .attr("text-anchor", "end")
     .text("Foo");
 
-svg.append("g")
+bar_svg.append("g")
     .attr("class", "y axis")
-    .call(yAxis)
+    .call(bar_yAxis)
 .append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 6)
@@ -175,8 +175,8 @@ svg.append("g")
     .text("Log(Number Sts)");
 
         
-var bars = svg.selectAll("rect")
-    .data(data)
+var bars = bar_svg.selectAll("rect")
+    .data(dataset2)
  .enter().append("rect")
     .attr("x", function(d) {return x(d[0]) + x.rangeBand()/2 - 40;})
     .attr("y", function(d) {return y(d[1]);})
