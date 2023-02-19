@@ -19,8 +19,6 @@ g.append("g")
 .call(d3.axisLeft(yScale));
 
 function findIndexInArray(givenArray, object) {
-    console.log("in index: " + object);
-
     for (var i = 0; i < givenArray.length; i++) {
         if (givenArray[i][0] == object[0] && givenArray[i][1] == object[1]) {
             return i
@@ -185,8 +183,8 @@ bar_svg.append("g")
 var bars = bar_svg.selectAll("rect")
     .data(dataset2)
  .enter().append("rect")
-    .attr("x", function(d) {return x(d[0]) + x.rangeBand()/2 - 40;})
-    .attr("y", function(d) {return y(d[1]);})
+    .attr("x", function(d) {return bar_x(d[0]) + bar_x.rangeBand()/2 - 40;})
+    .attr("y", function(d) {return bar_y(d[1]);})
     .attr("width", 20)
-    .attr("height", function(d) {return height - y(d[1]);})
-    .style("fill","blue");s
+    .attr("height", function(d) {return bar_height - bar_y(d[1]);})
+    .style("fill","blue");
